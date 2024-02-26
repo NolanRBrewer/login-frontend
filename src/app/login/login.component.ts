@@ -32,24 +32,19 @@ export class LoginComponent {
   passwordControl = new FormControl("",[Validators.required]);
   oneTimeAuthControl = new FormControl("");
   hideRequiredControl = new FormControl(false);
-  floatLabelControl = new FormControl('auto' as FloatLabelType);
   options = this._formBuilder.group({
     email: this.emailControl,
     password: this.passwordControl,
     oneTimeAuth: this.oneTimeAuthControl,
     hideRequired: this.hideRequiredControl,
-    floatLabel: this.floatLabelControl,
   });
 
   constructor(private _formBuilder: FormBuilder,
     private ApiService: ApiService,
     private router: Router) {}
 
-  getFloatLabelValue(): FloatLabelType {
-    return this.floatLabelControl.value || 'auto';
-  }
   onLogin(){
-    console.log("onLogin call", this.options)
+    // call api service to validate credentials
     var Login:Login = {
       user: `${this.options.value.email}`,
       password: `${this.options.value.password}`,
@@ -57,10 +52,11 @@ export class LoginComponent {
     }
     var isValidated = this.ApiService.validateLogon(Login).subscribe((logValid) => console.log(logValid))
     console.log(`is Validated`, isValidated)
-    // how to parse subscription
+    // how to parse subscription? 
     if (isValidated){
       this.router.navigate(['http://onecause.com']);
     } else {
+      // indicate failure to user
       console.log("failed login")
     }
   }
