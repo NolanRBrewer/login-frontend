@@ -9,7 +9,6 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
 import { Login } from '../login';
 import { ApiService } from '../api.service';
-import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -40,8 +39,7 @@ export class LoginComponent {
   });
 
   constructor(private _formBuilder: FormBuilder,
-    private ApiService: ApiService,
-    private router: Router) {}
+    private ApiService: ApiService,) {}
 
   onLogin(){
     // call api service to validate credentials
@@ -50,14 +48,16 @@ export class LoginComponent {
       password: `${this.options.value.password}`,
       token: "",
     }
-    var isValidated = this.ApiService.validateLogon(Login).subscribe((logValid) => console.log(logValid))
-    console.log(`is Validated`, isValidated)
-    // how to parse subscription? 
-    if (isValidated){
-      this.router.navigate(['http://onecause.com']);
-    } else {
-      // indicate failure to user
-      console.log("failed login")
-    }
+
+    this.ApiService.validateLogon(Login).subscribe((validLogin) => {
+      console.log(`is Validated`, validLogin);
+      // handle redirect based on validation
+      if (validLogin){
+        window.location.href = 'https://www.onecause.com/';
+      } else {
+        // indicate failure to user
+        console.log("failed login");
+      }
+    });
   }
 }
