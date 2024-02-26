@@ -1,24 +1,18 @@
-<div class="example-container">
+<div class="content">
     <form [formGroup]="options">
       <div class="example-form-fields">
         <mat-form-field>
             <mat-label>Email Address</mat-label>
           <input matInput [formControl]="emailControl">
         </mat-form-field>
-  
         <mat-form-field [floatLabel]="getFloatLabelValue()">
           <mat-label>Password</mat-label>
           <input matInput type="password" [formControl]="passwordControl">
         </mat-form-field>
   
-        <mat-form-field
-            [hideRequiredMarker]="hideRequiredControl.value"
-            [floatLabel]="getFloatLabelValue()">
-          <mat-select required>
-            <mat-option>-- None --</mat-option>
-            <mat-option value="option">Option</mat-option>
-          </mat-select>
-          <mat-label><mat-icon>favorite</mat-icon> <strong> Fancy</strong> <em> label</em></mat-label>
+        <mat-form-field [floatLabel]="getFloatLabelValue()">
+            <mat-label>One Time Authentication</mat-label>
+            <input matInput type="token" [formControl]="oneTimeAuthControl">
         </mat-form-field>
       </div>
     </form>
