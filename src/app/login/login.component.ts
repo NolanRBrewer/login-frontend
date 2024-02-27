@@ -60,4 +60,7 @@ export class LoginComponent {
       }
     });
   }
+  oneAuth(){
+    console.log("OneAuth call")
+  }
 }
