@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {FloatLabelType, MatFormFieldModule} from '@angular/material/form-field';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
@@ -9,6 +9,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
 import { Login } from '../login';
 import { ApiService } from '../api.service';
+import {MatDialog} from '@angular/material/dialog';
+import { TokenDialogComponent } from '../token-dialog/token-dialog.component';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -39,7 +42,8 @@ export class LoginComponent {
   });
 
   constructor(private _formBuilder: FormBuilder,
-    private ApiService: ApiService,) {}
+    private ApiService: ApiService,
+    private dialog: MatDialog) {}
 
   onLogin(){
     // call api service to validate credentials
@@ -61,6 +65,20 @@ export class LoginComponent {
     });
   }
   oneAuth(){
+    // Get the current time
+    // add 0 to the start of single digit times
+    const now = new Date();
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+    // padding times
+    const padHour = hour.toString().padStart(2,'0');
+    const padMinute = minute.toString().padStart(2,'0');
+    const timeToken = padHour + padMinute;
     console.log("OneAuth call")
+    console.log(timeToken)
+    // Open token dialog pop up
+    this.dialog.open(TokenDialogComponent, {
+      data:{token: timeToken}
+    });
   }
 }

@@ -1,0 +1,15 @@
+div.token-content{
+    position: absolute;
+    display: flex;
+    width: 400px;
+    height: 400px;
+    left: 50%;
+    top: 50%;
+    background-color: white
+}
+p.token-creation {
+    position: absolute;
+    align-content: center;
+    padding: 50px;
+    font-size: large;
+}
