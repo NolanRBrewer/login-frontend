@@ -9,8 +9,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
 import { Login } from '../login';
 import { ApiService } from '../api.service';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { TokenDialogComponent } from '../token-dialog/token-dialog.component';
+import { LoginFailureDialogComponent } from '../login-failure-dialog/login-failure-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,7 @@ import { TokenDialogComponent } from '../token-dialog/token-dialog.component';
     MatSelectModule,
     MatIconModule,
     MatButtonModule,
+    MatDialogModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -50,9 +52,9 @@ export class LoginComponent {
     var Login:Login = {
       user: `${this.options.value.email}`,
       password: `${this.options.value.password}`,
-      token: "",
+      token: `${this.options.value.oneTimeAuth}`,
     }
-
+    
     this.ApiService.validateLogon(Login).subscribe((validLogin) => {
       console.log(`is Validated`, validLogin);
       // handle redirect based on validation
@@ -61,6 +63,11 @@ export class LoginComponent {
       } else {
         // indicate failure to user
         console.log("failed login");
+        this.dialog.open(LoginFailureDialogComponent, {
+          width: "300px",
+          height: "200px",
+          data: "Login Failure"
+        });
       }
     });
   }
@@ -78,7 +85,9 @@ export class LoginComponent {
     console.log(timeToken)
     // Open token dialog pop up
     this.dialog.open(TokenDialogComponent, {
-      data:{token: timeToken}
+      width: "300px",
+      height: "150px",
+      data: timeToken
     });
   }
 }
