@@ -72,6 +72,7 @@ export class LoginComponent {
     });
   }
   oneAuth(){
+    
     // Get the current time
     // add 0 to the start of single digit times
     const now = new Date();
@@ -90,4 +91,6 @@ export class LoginComponent {
       data: timeToken
     });
   }
+  /* TODO make a register button for new users
+  */
 }
