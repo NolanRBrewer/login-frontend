@@ -9,12 +9,13 @@
           <mat-label>Password</mat-label>
           <input matInput type="password" [formControl]="passwordControl">
         </mat-form-field>
-        <button mat-raised-button color="primary" (click)="onLogin()"> Login</button>
-        <mat-form-field class="token-field">
-            <mat-label>One Time Authentication</mat-label>
-            <input matInput type="token" [formControl]="oneTimeAuthControl">
+        <mat-form-field>
+          <mat-label>Authentication Token</mat-label>
+          <input matInput type="token" [formControl]="oneTimeAuthControl">
         </mat-form-field>
-        <button mat-raised-button color="primary" (click)="oneAuth()"> Show Authentication Token</button>
+        <button mat-raised-button color="primary" (click)="onLogin()"> Login</button>
+        <button mat-raised-button color="basic" class="token-button" (click)="oneAuth()"> Show Authentication Token</button> 
+
       </div>
     </form>
 </div>

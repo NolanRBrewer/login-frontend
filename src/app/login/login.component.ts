@@ -34,7 +34,7 @@ import { LoginFailureDialogComponent } from '../login-failure-dialog/login-failu
 export class LoginComponent {
   emailControl = new FormControl("", [Validators.required,Validators.email]);
   passwordControl = new FormControl("",[Validators.required]);
-  oneTimeAuthControl = new FormControl("");
+  oneTimeAuthControl = new FormControl("",[Validators.required]);
   hideRequiredControl = new FormControl(false);
   options = this._formBuilder.group({
     email: this.emailControl,
@@ -59,6 +59,7 @@ export class LoginComponent {
       console.log(`is Validated`, validLogin);
       // handle redirect based on validation
       if (validLogin){
+        
         window.location.href = 'https://www.onecause.com/';
       } else {
         // indicate failure to user
@@ -72,7 +73,7 @@ export class LoginComponent {
     });
   }
   oneAuth(){
-    
+
     // Get the current time
     // add 0 to the start of single digit times
     const now = new Date();
