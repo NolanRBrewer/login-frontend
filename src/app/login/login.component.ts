@@ -10,8 +10,9 @@ import {MatButtonModule} from '@angular/material/button';
 import { Login } from '../login';
 import { ApiService } from '../api.service';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-import { TokenDialogComponent } from '../token-dialog/token-dialog.component';
-import { LoginFailureDialogComponent } from '../login-failure-dialog/login-failure-dialog.component';
+//import { LoginFailureDialogComponent } from '../login-failure-dialog/login-failure-dialog.component';
+import {DialogOption} from '../dialog-option';
+import {DialogComponent} from '../dialog-component/dialog-component.component';
 
 @Component({
   selector: 'app-login',
@@ -49,25 +50,37 @@ export class LoginComponent {
 
   onLogin(){
     // call api service to validate credentials
-    var Login:Login = {
+    var login:Login = {
       user: `${this.options.value.email}`,
       password: `${this.options.value.password}`,
       token: `${this.options.value.oneTimeAuth}`,
     }
     
-    this.ApiService.validateLogon(Login).subscribe((validLogin) => {
+    this.ApiService.validateLogon(login).subscribe((validLogin) => {
       console.log(`is Validated`, validLogin);
       // handle redirect based on validation
       if (validLogin){
-        
-        window.location.href = 'https://www.onecause.com/';
-      } else {
-        // indicate failure to user
-        console.log("failed login");
-        this.dialog.open(LoginFailureDialogComponent, {
+        var dialog: DialogOption = {
+          title: "Login Success",
+          message: "Redirecting . . .",
+        }
+        this.dialog.open(DialogComponent, {
           width: "300px",
           height: "200px",
-          data: "Login Failure"
+          data: dialog
+        });
+        setTimeout(()=> window.location.href = 'https://www.onecause.com/', 3000);
+      } else {
+        // indicate failure to user
+        var dialog: DialogOption = {
+          title: "Login Failure",
+          message: "double check the login information and make sure to include the authentication token.",
+        }
+        console.log("failed login");
+        this.dialog.open(DialogComponent, {
+          width: "300px",
+          height: "200px",
+          data: dialog
         });
       }
     });
@@ -85,11 +98,15 @@ export class LoginComponent {
     const timeToken = padHour + padMinute;
     console.log("OneAuth call")
     console.log(timeToken)
+    var dialog: DialogOption = {
+      title: "Authentication Token",
+      message: timeToken,
+    }
     // Open token dialog pop up
-    this.dialog.open(TokenDialogComponent, {
+    this.dialog.open(DialogComponent, {
       width: "300px",
       height: "150px",
-      data: timeToken
+      data: dialog
     });
   }
   /* TODO make a register button for new users
