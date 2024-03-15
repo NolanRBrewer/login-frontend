@@ -3,15 +3,14 @@ import{MAT_DIALOG_DATA, MatDialogContent, MatDialogTitle} from '@angular/materia
 import {DialogOption} from "../dialog-option"
 
 @Component({
-  selector: 'app-login-failure-dialog',
+  selector: 'app-dialog-component',
   standalone: true,
   imports: [MatDialogContent,
   MatDialogTitle],
-  templateUrl: './login-failure-dialog.component.html',
-  styleUrl: './login-failure-dialog.component.css'
+  templateUrl: './dialog-component.component.html',
+  styleUrl: './dialog-component.component.css'
 })
-export class LoginFailureDialogComponent {
+export class DialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogOption){console.log(this.data)}
 
 }
-

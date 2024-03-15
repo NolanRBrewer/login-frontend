@@ -10,8 +10,9 @@ import {MatButtonModule} from '@angular/material/button';
 import { Login } from '../login';
 import { ApiService } from '../api.service';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-import { LoginFailureDialogComponent } from '../login-failure-dialog/login-failure-dialog.component';
-import {DialogOption} from '../dialog-option'
+//import { LoginFailureDialogComponent } from '../login-failure-dialog/login-failure-dialog.component';
+import {DialogOption} from '../dialog-option';
+import {DialogComponent} from '../dialog-component/dialog-component.component';
 
 @Component({
   selector: 'app-login',
@@ -63,7 +64,7 @@ export class LoginComponent {
           title: "Login Success",
           message: "Redirecting . . .",
         }
-        this.dialog.open(LoginFailureDialogComponent, {
+        this.dialog.open(DialogComponent, {
           width: "300px",
           height: "200px",
           data: dialog
@@ -76,7 +77,7 @@ export class LoginComponent {
           message: "double check the login information and make sure to include the authentication token.",
         }
         console.log("failed login");
-        this.dialog.open(LoginFailureDialogComponent, {
+        this.dialog.open(DialogComponent, {
           width: "300px",
           height: "200px",
           data: dialog
@@ -102,7 +103,7 @@ export class LoginComponent {
       message: timeToken,
     }
     // Open token dialog pop up
-    this.dialog.open(LoginFailureDialogComponent, {
+    this.dialog.open(DialogComponent, {
       width: "300px",
       height: "150px",
       data: dialog
